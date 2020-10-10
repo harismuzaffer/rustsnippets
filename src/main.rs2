@@ -1,0 +1,54 @@
+enum Option<T> {
+    Some(T),
+    None
+}
+
+fn main(){
+    let mut rectangle1 = Rectangle {
+        length: 12,
+        width: 10
+    };
+
+    println!("area of is {}", rectangle1.area());
+    let mut rect2: Rectangle = Rectangle::new();
+    println!("rect2 is {:?}", rect2);
+    rect2.double();
+    rect2.double();
+    // println!("new area is {}", rect2.double().area());
+    match rect2.double() {
+        Option::Some(myrect)=> {
+            println!("my rect is  {:?}", myrect);
+        },
+        Option::None=> {
+            println!("recieved None");
+        }
+    }
+
+    let s = "hello";
+}
+
+#[derive(Debug)]
+struct Rectangle {
+    length: u32,
+    width: u32
+}
+
+impl Rectangle {
+    fn area(&self)-> u32 {
+        self.length * self.width
+    }
+
+    fn double(&mut self)-> Option<&Rectangle> {
+        self.length *= 2;
+        self.width *= 2;
+        Option::Some(self)
+    }
+
+    fn new()-> Rectangle{
+        Rectangle{
+            length: 2,
+            width: 2
+        }
+        
+    }
+}
