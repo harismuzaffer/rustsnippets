@@ -1,5 +1,4 @@
 fn iterate_vector(v: &Vec<String>) {
-    // let x = &v;
     println!("printing vector ...");
     for item in v{
         println!("item is {}", item);
