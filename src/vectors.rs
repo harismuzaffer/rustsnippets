@@ -28,3 +28,20 @@ pub fn get_second_itme_from_vector(){
         }
     }
 }
+
+pub mod multi_type_elements_vectors {
+    enum SpreadsheetCell {
+        Int(i32),
+        Float(f64),
+        Text(String),
+    }
+    pub fn pub_vector_using_enum() {
+        // usually vectors cant have elements belonging to multiple data types, but using enum we
+        // can create a vector of multiple data types and at the same of the same enum type
+        let row = vec![
+            SpreadsheetCell::Int(3),
+            SpreadsheetCell::Text(String::from("blue")),
+            SpreadsheetCell::Float(10.12),
+        ];
+    }
+}
