@@ -7,6 +7,8 @@ pub mod vectors;
 pub mod guessing_game;
 pub mod functions;
 pub mod safety_rules;
+pub mod hash_maps;
+pub mod string_collection;
 
 fn main() {
     // guessing_game::play();
@@ -21,5 +23,11 @@ fn main() {
     // vectors::vectors_test();
     // enums::enums_with_struct();
     // functions::functions_pass_and_return::test_pass_and_return();
-}
+    // string_collection::string_manipulation();
+    // string_collection::iterate_string();
+    // string_collection::concatenate_strings();
 
+    // hash_maps::hash_map_using_collect();
+    hash_maps::manipulating_hash_maps();
+    hash_maps::update_hashmap();
+}
