@@ -37,7 +37,7 @@ pub mod recoveralble {
         };
     }
 
-    fn unwrap_expect() {
+    pub fn unwrap_expect() {
         let f = File::open("somefile.csv");
         let f = match f {
             Ok(fh) => fh,
@@ -58,7 +58,7 @@ pub mod recoveralble {
             Err(error) => return Err(error),
         };
 
-        let s = String::new();
+        let mut s = String::new();
 
         match f.read_to_string(&mut s) {
             Ok(_) => Ok(s),
@@ -69,8 +69,8 @@ pub mod recoveralble {
     pub fn propagate_errors_shortcut() -> Result<String, std::io::Error>{
         // the ? will return the error to the calling funcation otherwise it just returns the
         // success value to variable hoook
-        let f = File::open("somefile.csv")?;
-        let s = String::new();
+        let mut f = File::open("somefile.csv")?;
+        let mut s = String::new();
         f.read_to_string(&mut s)?;
         Ok(s)
     }

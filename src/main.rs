@@ -10,12 +10,12 @@ pub mod safety_rules;
 pub mod hash_maps;
 pub mod string_collection;
 pub mod error_handling;
+pub mod traits_and_generics;
 
 
 fn main() {
-    // error_handling::unrecoveralble::index_out_of_bound();
-    // error_handling::recoveralble::file_not_found();
-    // error_handling::recoveralble::file_not_found_error_kind();
-    error_handling::recoveralble::unwrap_expect();
+    // traits_and_generics::traits::driver_code();
+    // traits_and_generics::generics::generic_funcs::driver_code();
 }
+
 
