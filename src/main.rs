@@ -11,11 +11,10 @@ pub mod hash_maps;
 pub mod string_collection;
 pub mod error_handling;
 pub mod traits_and_generics;
+pub mod lifetimes;
 
 
 fn main() {
-    // traits_and_generics::traits::driver_code();
-    // traits_and_generics::generics::generic_funcs::driver_code();
-}
 
+}
 
