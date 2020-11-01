@@ -31,19 +31,23 @@ pub mod references {
         let mut s = String::from("hello world");
         let ss = &s; // ok
         let sss = &s; // ok
+        println!("{}, {}", ss, sss);
 
         let mut k = String::from("hello workd");
         let kk = &k; // ok
         let kk = &mut k; // not ok because mutable and immutable coexisting
+        // println!("{}, {}", kk, kkk);
 
         let mut l = String::from("hello world");
         let ll = &mut l; // ok
-        let lll = &mut l; // not ok because tow immutable references
+        let lll = &mut l; // not ok because two immutable references
+        // println!("{}, {}", ll, lll);
 
 
         let mut m = String::from("hello world");
         let mm = &mut s; // ok
         println!("mm is a reference holding an address: {:p}", mm);
         let mmm = &mut s; // ok because the non-lexical lifetime of mm is over so we can have new set of references to m
+        println!("{}", mmm);
     }
 }
