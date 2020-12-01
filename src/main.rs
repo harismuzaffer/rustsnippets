@@ -15,6 +15,11 @@ pub mod lifetimes;
 
 
 fn main() {
+    // let c = closures_iterators::closures::Cacher::new(|a| a);
+    // let cc = closures_iterators::closures::Cacher {
+    //     calculation: |a| a,
+    // };
 
+    closures_iterators::iterators::consuming_iterators::filter_with_map();
 }
 
