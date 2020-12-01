@@ -35,12 +35,12 @@ pub mod references {
 
         let mut k = String::from("hello workd");
         let kk = &k; // ok
-        let kk = &mut k; // not ok because mutable and immutable coexisting
+        let kk = &mut k; // not ok because mutable and immutable coexisting, the next line is an error
         // println!("{}, {}", kk, kkk);
 
         let mut l = String::from("hello world");
         let ll = &mut l; // ok
-        let lll = &mut l; // not ok because two immutable references
+        let lll = &mut l; // not ok because two immutable references, next line is an error
         // println!("{}, {}", ll, lll);
 
 
