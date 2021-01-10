@@ -26,28 +26,30 @@ pub mod owning {
 
 pub mod references {
     pub fn mutable_and_immutable_references() {
-        // we can have any number of immutable references to a data, but there can be only one mutable
-        // references at at time. Also mutable and immutable references cant coexist
+        // we can have any number of immutable references to a data, but there can be only one 
+        // mutable references at at time. Also mutable and immutable references cant coexist
         let mut s = String::from("hello world");
-        let ss = &s; // ok
+        let ss = &s; // ok ... non-lexical lifetime of ss starts here
         let sss = &s; // ok
-        println!("{}, {}", ss, sss);
+        println!("{}", ss); // non-lexical lifetime of ss ends here
 
         let mut k = String::from("hello workd");
-        let kk = &k; // ok
-        let kkk = &mut k; // not ok because mutable and immutable coexisting, the next line is an error
-        // println!("{}, {}", kk, kkk);
+        let kk = &k; // ok ... non-lexical lifetime of kk starts here
+        let kkk = &mut k; // not ok if we uncomment the next print because it would mean mut and 
+        // immutable references coexist throughout the non-lexical lifetime of kk
+        // println!("{}", kk); // non-lexical lifetime of kk ends here
 
         let mut l = String::from("hello world");
-        let ll = &mut l; // ok
-        let lll = &mut l; // not ok because two immutable references, next line is an error
-        // println!("{}, {}", ll, lll);
+        let ll = &mut l; // ok ... non-lexical lifetime of ll starts here
+        let lll = &mut l; // not ok if we uncomment the next print as that would mean two immutable
+        // references throughout the non-lexical lifetime of ll
+        // println!("{}", ll);
 
 
         let mut m = String::from("hello world");
-        let mm = &mut s; // ok
-        println!("mm is a reference holding an address: {:p}", mm);
-        let mmm = &mut s; // ok because the non-lexical lifetime of mm is over so we can have new set of references to m
-        println!("{}", mmm);
+        let mm = &mut m; // ok ... non-lexical lifetime of mm starts here
+        println!("mm is a ref holding an address: {:p}", mm); // non-lexical lifetime of mm ends here
+        let mmm = &mut m; // ok because the non-lexical lifetime of mm is over 
+        // so we can have new set of references to m
     }
 }
