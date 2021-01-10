@@ -35,7 +35,7 @@ pub mod references {
 
         let mut k = String::from("hello workd");
         let kk = &k; // ok
-        let kk = &mut k; // not ok because mutable and immutable coexisting, the next line is an error
+        let kkk = &mut k; // not ok because mutable and immutable coexisting, the next line is an error
         // println!("{}, {}", kk, kkk);
 
         let mut l = String::from("hello world");
