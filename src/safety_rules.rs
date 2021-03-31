@@ -1,8 +1,9 @@
 pub mod borrowing {
     pub fn borrowing(){
         let name = String::from("haris shah");
-        // this function is borrowing the string name, that is why in the next line, we are able to
-        // reuse name
+        // calculate_len is borrowing the string name(notice ampersand), that is why in the next 
+        // line, we are able to reuse name. Without ampersand, it would have owned `name` and we
+        // wont be able to use `name` afterwards
         let len = calculate_len(&name);
         println!("length of {} is {}", name, len);
     }
@@ -16,7 +17,7 @@ pub mod owning {
     pub fn owning() {
         let color = String::from("magenta");
         ownit(color);
-        // the next line is an error because the string color ownsership has changed now
+        // the next line is an error because the string `color` ownsership has changed now
         // println!("my colors is {}", color);
     }
     fn ownit(s: String){
