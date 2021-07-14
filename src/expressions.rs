@@ -43,4 +43,11 @@ pub mod expressions {
         // to a value when we call the fn, but `if` doesn't require calling. That is the reason 
         // `if` is always an expression
     }
+
+    pub fn if_expression_example() {
+        let condition = true;
+
+        let x = if condition { "hello"  } else { "world" };
+        println!("{}", x);
+    }
 }
