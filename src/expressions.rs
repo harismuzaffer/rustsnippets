@@ -19,8 +19,10 @@ pub mod expressions {
     pub fn if_expression() {
         // All if statements are actually expressions that evaluate to a value
         let a = if true {
-            5;
-        } else {7;};
+            5
+        } else { 
+            7 
+        };
         println!("{:?}", a); // 5
         // In the above example, we are assigning `a` a value. Which value? The value that `if`
         // expression evaluates to. Here `if` expression evaluates to 5
