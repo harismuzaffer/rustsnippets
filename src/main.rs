@@ -14,6 +14,7 @@ pub mod traits_and_generics;
 pub mod lifetimes;
 pub mod closures_iterators;
 pub mod expressions;
+pub mod stack_vs_heap;
 
 
 fn main() {
