@@ -37,7 +37,7 @@ pub mod references {
 
         let mut k = String::from("hello workd");
         let kk = &k; // ok
-        let kkk = &mut k; // NOT OK(as long as `kk` is active)if we attempt to use `kk` later 
+        let kkk = &mut k; // NOT OK(as long as `kk` is active i.e. if we attempt to use `kk` later) 
         // because mutable and immutable coexisting during the scope lifetime of `kk` 
         // println!("{}", kk); // error
 
