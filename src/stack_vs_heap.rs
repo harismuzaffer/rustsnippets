@@ -1,7 +1,10 @@
 pub fn memory_representation() {
     // Stack and Heap:
     // Data which has fixed and known size at compile time is stored on the STACK otherwise it is
-    // stored on the HEAP
+    // stored on the HEAP. Why? because of how stack and heap work. Default should be that data
+    // goes to stack only because that is what is efficient and fast. But stacks are usually found in
+    // frames and has a LIFO structure to support its frames e.g. function variables go to
+    // stack one after another and then are pulled back from the stack frame in LIFO style
     
     // 1: Types that hold data entirely stored on the STACK implement Copy trait: meaning the data
     //    of such types can be copied to produce a new identical value.
