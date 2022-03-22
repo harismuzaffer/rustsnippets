@@ -5,6 +5,16 @@ pub fn slicetest(s: &String){
     let b = a; // this doesnt move ownership from a to b becoz a is a string literal
     // string literals are references by default... let a = "" is like let a: &str = ""
     println!("a is {}", a);
+
+
+    // Note on slice and references
+    let s = "hello world"; // a string slice
+    // To my understanding, s is a slice and a fat pointer i.e. it contains the refernce to the
+    // data and also has the length information it
+    let s = "hello world".to_string();
+    let ss = &s[..];
+    // On the other hand, ss is not a slice, rather it is just a refernce to a slice of another String. This looks
+    // like a thin pointer with no length information
 }
 
 pub fn slice_string() {
