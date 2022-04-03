@@ -12,7 +12,8 @@ pub fn dangling_ref() {
 
 
 pub mod life_times_and_elision_rules {
-    // by applying the first and second elision rule, there is no need of explicit litetimes here
+    // by applying the first and second elision rule, there is no need of explicit litetimes here.
+    // the output reference is given the same lifetime as that of the input reference.
     pub fn first_word(s: &str) -> &str {
         let bytes = s.as_bytes();
 
