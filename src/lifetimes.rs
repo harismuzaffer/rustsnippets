@@ -12,6 +12,7 @@ pub fn dangling_ref() {
 
 
 pub mod life_times_and_elision_rules {
+     // A very useful blog to understand lifetimes: https://richardanaya.medium.com/a-journey-through-rust-lifetimes-5a08782c7091
 
     pub mod understanding_lifetimes {
         // lifetime is all about references. If there is not reference involved, no need of
@@ -49,15 +50,17 @@ pub mod life_times_and_elision_rules {
             let result;
             {
                 let string2 = String::from("xyz");
-                // the fn longest is a compilation error becuase rust compiler doenst know what which string will be returned
-                // from it. if string string2 ref is returned then it would have been error of string2 not
-                // living enough.. to show that error i.e. the string returned by the fn call lives enough
-                // or not, we need to hit the compiler and tell it what is the lifetime relationship here
-                //
+                // the fn longest is a compilation error becuase rust compiler doenst know which 
+                // string will be returned from it. If string string2 ref is returned then the
+                // print statement after this block cant print result because result refers to
+                // strins2 which dies at the end of this block.
+                
+                // We need to hit the compiler and tell it what is the lifetime relationship here
+               
                 // in other words, if we dont tell compiler that lifetime relationships, it wont
                 // allow us to proceed without that and if we add lifetime relationships, the 
-                // print after this block is still an error but now it is becuase result doesn live enough to
-                // support both string1 and string2 lifetime
+                // print after this block is still an error but now it is because result refers
+                // to string2 which doesn live enough 
                 
                 result = longest(string1.as_str(), string2.as_str());
             }
