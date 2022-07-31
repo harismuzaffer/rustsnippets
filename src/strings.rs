@@ -14,7 +14,8 @@ pub fn slicetest(s: &String){
     let s = "hello world".to_string();
     let ss = &s[..];
     // On the other hand, ss is not a slice, rather it is just a refernce to a slice of another String. This looks
-    // like a thin pointer with no length information
+    // like a thin pointer with no length information. May be s(above) and ss are exactly same i.e.
+    // both are string slices
 }
 
 pub fn slice_string() {
