@@ -91,6 +91,77 @@ pub mod life_times_and_elision_rules {
             }
         }
 
+        pub mod more_lifetimes {
+            // This is about how static data can affect your lifetimes
+            // We will create two variants of Foo. Both Foos hold a single integer. One of the Foos
+            // hold an owned integer and another one holds a reference to an integer.
+            struct FooOwned {
+                bar: i32
+            }
+
+            // In case of Foo holding a reference, we need to apply lifetimes to tell compiler the
+            // relationship between the Foo instance and the data reference that it holds
+            struct FooReferred<'a> {
+                bar: &'a i32
+            }
+
+            // We have get_bar_owned and get_bar_referred for FooOwned and FooReferred respectively. Both return a integer reference
+            
+            // get_bar_owned takes a FooOwned reference and returns an i32 reference. Rust is able
+            // to infer that the only lifetime it’s output could be based upon is it’s input. So it
+            // auto sets lifetime of the input and the output which basically would say: output will
+            // last at least as long as it’s sole input
+            fn get_bar_owned(f: &FooOwned) -> &i32 {
+                &f.bar 
+            }
+
+            // get_bar_referred takes a FooReferred reference and returns an i32 reference. Rust is
+            // not able to infer that output lifetime because here the reference of FooReferred
+            // Becasuse the parameter passed could be a static instance. 
+            // We need to tell Rust whether the output lifetime is based on the lifetime of
+            // the member of the struct instance or the parameter passed. Why? because FooReferred
+            // holds a reference which means that if FooReferred instance is static, the reference
+            // it holds might not be static which in turn means reference can live shorter than the
+            // instance itself. In case of FooOwned, its static instance would mean that the data
+            // it holds would always live as long as the instance itself because it is owned by the instance
+            //
+            // One way to fix it to tell compiler that output lasts as long as the parameter
+            fn get_bar_referred<'a>(f: &'a FooReferred) -> &'a i32 {
+                &f.bar 
+            }
+
+            // Another way is to tell compiler that output lasts as long as member of FooReferred
+            // instance
+            fn get_bar_referred_v2<'a>(f: &FooReferred<'a>) -> &'a i32 {
+                &f.bar 
+            }
+
+            pub fn apply_more_lifetime() {
+                // let n = 100;
+                // let ref_n;
+                // {
+                //     let f: FooReferred = FooReferred{bar: &n};
+                //     ref_n = get_bar_referred(&f);
+                // }
+                // // following print is an error because we have stated that output of get_bar_referred
+                // // lives as long as the instance of FooReferred passed but here f(i.e. FooReferred
+                // // instance doesn live enough so that we can print ref_n)
+                // // println!("{}", ref_n);
+            }
+
+            pub fn apply_more_lifetimes_v2() {
+                let n = 200;
+                let ref_n;
+                {
+                    let f: FooReferred = FooReferred{bar: &n};
+                    ref_n = get_bar_referred_v2(&f);
+                }
+                // following print works because output of get_bar_referred_v2 lives as long as the
+                // member of FooReferred instance i.e. bar
+                println!("{}", ref_n);
+            }
+        }
+
     }
 
     // by applying the first and second elision rule, there is no need of explicit litetimes here.
