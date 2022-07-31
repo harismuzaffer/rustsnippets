@@ -15,7 +15,7 @@ pub mod life_times_and_elision_rules {
      // A very useful blog to understand lifetimes: https://richardanaya.medium.com/a-journey-through-rust-lifetimes-5a08782c7091
 
     pub mod understanding_lifetimes {
-        // lifetime is all about references. If there is not reference involved, no need of
+        // lifetime is all about references. If there is no reference involved, no need of
         // lifetimes
         
         // When there are references involved, borrow checker sometimes is not able to infer
@@ -30,7 +30,7 @@ pub mod life_times_and_elision_rules {
         //      `a` is dropped afret this block ends, any reference to `a` is invalid
         // }
         // println!("invalid to print z as it refers to `a` which doesn't live enough so that `z` 
-        //          can be further used {}", z);
+        //          can not be further used {}", z);
         
         // example when borrow checker is not able to infer lifetimes, thus needs programmers help
         // to validate lifetimes of some references...
@@ -41,9 +41,19 @@ pub mod life_times_and_elision_rules {
         //      r = max(&x, &y); max returns the reference of the maximum of the two values passed
         //      // compiler doesn't know whether reference of x or y would be returned, so it is
         //      not gauranteed that the next print statement is printing a valid reference or not
+        //      because if reference of x is returned by max, then print statement is valid but in
+        //      case y is returned then it is not valid which is why there is no gaurantee
         // }
         // println!("invalid to print result as it refers to either `x` or `y`  which in case of y doesn't live enough so that `result` 
         //          can be further used {}", z);
+        // To fix the above, we need help compiler to figure out the correct lifetime by doing the
+        // following:
+        // - set lifetime of the returned value as the lifetime of minimum of lifetimes of x and y.
+        // By doing so, we are safe no matter which one(x or y) is returned by max. We were already
+        // safe in case reference of x is returned by max because x live enough for println to
+        // print it. Now with lifetimes, we are safe even if y is returned because we have told
+        // compiler to set lifetime of the returned value as the minimum of x and y  i.e. returned
+        // reference should live atleast as y lives. 
 
         fn applying_lifetimes () {
             let string1 = String::from("long string is long");
