@@ -116,24 +116,50 @@ pub mod life_times_and_elision_rules {
             }
 
             // get_bar_referred takes a FooReferred reference and returns an i32 reference. Rust is
-            // not able to infer that output lifetime because here the reference of FooReferred
-            // Becasuse the parameter passed could be a static instance. 
+            // not able to infer lifetime here Becasuse FooReferred has two lifetimes - one is the
+            // parameter f and another is the reference to i32 that it holds. We are telling rust
+            // that we will return &i32 but rust just knows that the lifetime of output is based on
+            // the sole input
             // We need to tell Rust whether the output lifetime is based on the lifetime of
             // the member of the struct instance or the parameter passed. Why? because FooReferred
-            // holds a reference which means that if FooReferred instance is static, the reference
-            // it holds might not be static which in turn means reference can live shorter than the
-            // instance itself. In case of FooOwned, its static instance would mean that the data
+            // holds a reference which means that if FooReferred instance is local and the reference
+            // it holds might is static, this means with lifetime basing on FooReferred.bar, if ref to 
+            // i32(of FooReferred but not FooReferred.bar) is returned - would attempt to live longer
+            // (but actually has lifetime)
+            // In case of FooOwned, its static instance would mean that the data
             // it holds would always live as long as the instance itself because it is owned by the instance
             //
             // One way to fix it to tell compiler that output lasts as long as the parameter
             fn get_bar_referred<'a>(f: &'a FooReferred) -> &'a i32 {
-                &f.bar 
+                f.bar 
             }
 
             // Another way is to tell compiler that output lasts as long as member of FooReferred
             // instance
             fn get_bar_referred_v2<'a>(f: &FooReferred<'a>) -> &'a i32 {
-                &f.bar 
+                // with this, we can not use this outside of lifetime of FooReferred even if it
+                // itself lasts longer than that
+                f.bar 
+            }
+
+            //////////////////////////////////////////////////////////////////////
+
+            static A: i32 = 3;
+
+            fn lifetime_mismatch<'a, 'b>(x: &'a i32, y: &'b i32) -> &'a i32 {
+                // lifetime mismatch. We are declariing that output lifetime is same as a but we are
+                // returning something with lifetime `b which might be lesser
+                // return y;
+                &A // returning static is special, it is gauranteed to have lifetime to live enough.
+                   // So even if declare the output has a lifetime of 'a, we can return a static value. But
+                   // we can use the reference returned from here only for the lifetime of 'a
+            }
+
+            fn static_lifetime<'a>(x: &'a i32) -> &'static i32 {
+                // error: the lifetime of output declared is static but we are returning something with
+                // lesser lifetime
+                // return x;
+                &A
             }
 
             pub fn apply_more_lifetime() {
