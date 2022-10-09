@@ -141,6 +141,14 @@ pub mod life_times_and_elision_rules {
                 // itself lasts longer than that
                 f.bar 
             }
+            // fn get_bar_referred_v3<'a, 'b>(f: &'a FooReferred<'b>) -> &'b FooReferred<'b> {
+                // lifetime mismatch here: we have declared two lifetimes - `a and `b. We are
+                // then telling rust that output has lifetime of `b which is same as that of
+                // FooReferred.bar(this bar lives atleast as long as FooReferred but may last
+                // longer than that). But we are returning lifetime of data from f i.e. lifetime of
+                // 'a. `a and `b dont match
+                // f 
+            // }
 
             //////////////////////////////////////////////////////////////////////
 
