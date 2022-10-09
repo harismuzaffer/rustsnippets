@@ -184,7 +184,7 @@ pub mod life_times_and_elision_rules {
                 }
                 // following print works because output of get_bar_referred_v2 lives as long as the
                 // member of FooReferred instance i.e. bar
-                println!("{}", ref_n);
+                println!("FooReferred.bar is {}", ref_n);
             }
         }
 
