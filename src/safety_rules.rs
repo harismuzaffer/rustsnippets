@@ -57,5 +57,21 @@ pub mod references {
         println!("mm is a reference holding an address: {:p}", mm);
         let mmm = &mut s; // ok because the non-lexical lifetime of mm is over so we can have new set of references to m
         println!("{}", mmm);
+
+        let a = 10;
+        let b = a;
+        println!("{}", a); // Ok, because these are stack data and implement Copy trait. b = a
+                           // creates a new data of 10 and assigns to b
+
+        // immutable refernce are copy while mutable references are move.
+        let s = String::from("abc");
+        let ss = &s;
+        let sss = ss
+        println!("{}", ss); // ss is still valid because it was not copied in sss not moved
+                           //
+        let mut s = String::from("abc");
+        let ss = &mut s;
+        let sss = ss
+        // println!("{}", ss); s is still valid because it was not copied in ss not moved
     }
 }
