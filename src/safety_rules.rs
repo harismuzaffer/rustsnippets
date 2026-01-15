@@ -72,6 +72,6 @@ pub mod references {
         let mut s = String::from("abc");
         let ss = &mut s;
         let sss = ss
-        // println!("{}", ss); s is still valid because it was not copied in ss not moved
+        // println!("{}", ss); not valid, because ss was not moved and now is owned by sss
     }
 }

@@ -3,8 +3,12 @@ pub fn slicetest(s: &String){
     println!("slice is {}", slice);
     let a = "hello world!";
     let b = a; // this doesnt move ownership from a to b becoz a is a string literal
-    // string literals are references by default... let a = "" is like let a: &str = ""
+    // string literals are references by default... let a = "abc" is like let a: &str = "abc"
     println!("a is {}", a);
+    // because we are trying to create bb of type str but str needs to be able to store any
+    // possible value of that type including strings that are two gigabytes long. Because of
+    // this, a variable cannot have the type str.
+    // let bb = a[1..2]; error 
 
 
     // Note on slice and references
